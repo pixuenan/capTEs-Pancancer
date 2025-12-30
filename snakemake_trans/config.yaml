@@ -1,0 +1,20 @@
+path:
+    gff: "05.gff/"
+    remapping: "07.remapping/"
+    bam: "/share/capTEs/04.bam/"
+
+ref:
+    hg38_fa: "/Project/capTEs/03.ref/mainChr_hg38_UCSC.fa"
+    hg38_fa_obj: "/Project/capTEs/03.ref/mainChr_hg38_UCSC.dict.obj"
+    hg38_gff: "/Project/capTEs/03.ref/gencode.v47.annotation.gtf"
+    hg38_chrom: "/Project/capTEs/03.ref/hg38.chrom.bed"
+    hg38_chrom_region: "/Project/capTEs/03.ref/hg38.chrom.region.dict.5M.obj"
+    te_bed: "/Project/capTEs/03.ref/refseq.hg38.target.repeats.id.sort.bed"
+    te_cor_dict: "/Project/capTEs/03.ref/refseq.hg38.target.repeats.dict.obj"
+    te_info_dict: "/Project/capTEs/03.ref/refseq.hg38.target.repeats.id.info.dict.obj"
+    te_exon_dict: "/Project/capTEs/03.ref/refseq.hg38.target.repeats.gencodev47.exon.bed.dict.obj"
+
+tool:
+    find_path: "/Project/capTEs/01.scripts/snakemake_trans/find_trans_path.py"
+    find_path_no_dir: "/Project/capTEs/01.scripts/snakemake_trans/find_trans_path.no_dir.py"
+    find_path_no_splice: "/Project/capTEs/01.scripts/snakemake_trans/find_trans_path.no_splice.py"

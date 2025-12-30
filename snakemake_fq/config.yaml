@@ -1,0 +1,24 @@
+path:
+    qc_fastq: "00.qc_fastq/"
+    bam: "04.bam/"
+    gff: "05.gff/"
+    remapping: "07.remapping/"
+
+params:
+    nanofilt: "-q 10 -l 100 --headcrop 0 --tailcrop 0"
+
+ref:
+    hg38_fa: "/NAS/wg_pxn/Project/TEcap/03.ref/mainChr_hg38_UCSC.fa"
+    hg38_fa_obj: "/NAS/wg_pxn/Project/TEcap/03.ref/mainChr_hg38_UCSC.dict.obj"
+    hg38_gff: "/NAS/wg_pxn/Project/TEcap/03.ref/gencode.v37.main_chr.gtf"
+    hg38_gene: "/NAS/wg_pxn/Project/TEcap/03.ref/gencode.v37.main_chr.gene.name.bed"
+    hg38_gff_parasite: "/NAS/wg_pxn/Project/TEcap/03.ref/gencode.v37.main_chr.parasite.gtf"
+    te_gff: "/NAS/wg_pxn/Project/TEcap/03.ref/hg38.LINE.SINE.gff"
+    te_bed: "/NAS/wg_pxn/Project/TEcap/03.ref/hg38.LINE.SINE.bed"
+    te_seq_dict: "/NAS/wg_pxn/Project/TEcap/03.ref/hg38.LINE.SINE.seq.dict.obj"
+    te_in_set: "/NAS/wg_pxn/Project/TEcap/03.ref/hg38.LINE.SINE.id.intron.inter.set.obj"
+
+tool:
+    fq2fa: "/NAS/wg_pxn/Project/TEcap/02.scripts/local/fq2fa.py"
+    get_trans: "/NAS/wg_pxn/Project/TEcap/01.scripts/get_trans_fa.py"
+    parasite: "/NAS/wg_pxn/Project/TEcap/08.tool/ParasiTE.R"

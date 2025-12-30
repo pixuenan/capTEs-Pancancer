@@ -1,0 +1,34 @@
+import os
+import glob
+import pickle
+import pandas as pd
+
+##### load config and sample sheets #####
+
+configfile: "config.yaml"
+
+workdir: "/NAS/wg_pxn/Project/TEcap/new_pipe/"
+#sample_ls = ["GBM_08_N","GBM_08_T","GBM_05_N","GBM_05_T","GBM_06_T","GBM_07_N","GBM_07_T","GBM_01_N","GBM_01_T","GBM_02_N","GBM_02_T","GBM_03_N","GBM_03_T","GBM_04_N","GBM_04_T"]
+#sample_ls = ["EC_01_N","EC_01_T","EC_02_N","EC_02_T","EC_03_T","EC_03_N","EC_04_N","EC_04_T"]
+sample_ls = ["CESC_08_N","CESC_08_T","CESC_05_N","CESC_05_T","CESC_06_N","CESC_06_T","CESC_07_N","CESC_07_T","CESC_01_T","CESC_02_N","CESC_02_T","CESC_03_N","CESC_03_T","CESC_04_N","CESC_04_T"]
+#sample_ls = ["CESC_01_T"]
+#sample_ls = ["CRC_01_N","CRC_01_T","CRC_02_N","CRC_02_T","CRC_03_N","CRC_03_T","CRC_04_N","CRC_04_T","CRC_05_T", "CRC_06_N","CRC_06_T","CRC_07_N","CRC_07_T","CRC_08_N","CRC_08_T","CRC_09_N","CRC_09_T","CRC_10_T","CRC_10_N","CRC_11_T","CRC_11_N","CRC_12_T","CRC_12_N","CRC_13_T","CRC_13_N","CRC_14_T","CRC_14_N"]
+#sample_ls = ["STAD_02_N","STAD_02_T","STAD_04_N","STAD_04_T","STAD_07_T","STAD_07_N","STAD_08_N","STAD_08_T","STAD_09_T","STAD_09_N","STAD_10_T","STAD_10_N", "STAD_06_N","STAD_06_T","STAD_05_N","STAD_05_T","STAD_03_N","STAD_03_T","STAD_01_T","STAD_01_N"]
+#sample_ls = ["OV_01_N","OV_01_T","OV_02_N","OV_02_T","OV_03_N","OV_03_T","OV_04_N","OV_04_T","OV_05_N","OV_05_T","OV_06_N","OV_06_T"]
+#sample_ls = ["HNSC_01_N","HNSC_01_T","HNSC_02_N","HNSC_02_T","HNSC_03_N","HNSC_03_T","HNSC_04_N","HNSC_04_T","HNSC_05_N","HNSC_05_T","HNSC_06_N","HNSC_06_T","HNSC_07_N","HNSC_07_T"]
+#sample_ls = ["EC_01_N","EC_01_T","EC_02_N","EC_02_T","EC_03_N","EC_03_T","EC_04_N","EC_04_T"]
+#sample_ls = ["sgRNA_K562_1"]
+rule all:
+    input:
+        #expand(config["path"]["bam"]+"uniq/{sample_name}.hg38.bam", sample_name=sample_ls)
+        expand(config["path"]["gff"]+"{sample_name}/{sample_name}.R.flair.trans.ex20bp.selected.merged.bed", sample_name=sample_ls),
+
+
+##### load rules #####
+#include: "rules/qc.smk"
+include: "rules/common.smk"
+include: "rules/mapping.smk"
+include: "rules/trans_assemble.smk"
+include: "rules/define_region.smk"
+include: "rules/split_fa.smk"
+include: "rules/clean_bam.smk"

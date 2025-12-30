@@ -1,0 +1,38 @@
+import os
+import pandas as pd
+
+##### load config and sample sheets #####
+
+configfile: "config.yaml"
+
+def get_region_ls(sample_name):
+    merge_df = pd.read_csv("{}/{}/{}.R.flair.trans.ex20bp.selected.merged.bed".format(config["path"]["gff"], sample_name, sample_name), sep="\t", names=["r_chr", "r_start", "r_end"])
+    merge_df["region"] = merge_df.apply(lambda x: "{}-{}-{}".format(x["r_chr"], x["r_start"], x["r_end"]), axis=1)
+    return merge_df["region"].unique().tolist()
+
+workdir: "/output/"
+sample_ls = hnsc_ls+cesc_ls+ec_ls+ov_ls+gbm_ls+stad_ls+crc_ls
+
+rule all:
+    input:
+        expand(config["path"]["remapping"]+"{sample_name}/bam/{region}.spliced.bam", zip, sample_name=[sd["sample_name"] for sd in sample_dict], region=[sd["region"] for sd in sample_dict]),
+        expand(config["path"]["remapping"]+"{sample_name}/obj/{region}.trans.dict.obj", zip, sample_name=[sd["sample_name"] for sd in sample_dict], region=[sd["region"] for sd in sample_dict]),
+        expand(config["path"]["remapping"]+"{sample_name}/split_region.txt", sample_name=sample_ls),
+        expand(config["path"]["gff"]+"{sample_name}/{sample_name}.link.sr.clean.gff", sample_name=sample_ls),
+        expand(config["path"]["gff"]+"{sample_name}/{sample_name}.link.sr.clean.no_dir.gff", sample_name=sample_ls),
+        expand(config["path"]["gff"]+"{sample_name}/{sample_name}.link.sr.clean.no_splice.gff", sample_name=sample_ls),
+        expand(config["path"]["gff"]+"{sample_name}/{sample_name}.link.sr.clean.all.sorted.filtered.gff", sample_name=sample_ls),
+        expand(config["path"]["gff"]+"{sample_name}/{sample_name}.TE.mq10.exon.count.summary.csv", sample_name=sample_ls),
+
+
+
+##### load rules #####
+include: "rules/common.smk"
+include: "rules/define_region.smk"
+include: "rules/splice_no_dir.smk"
+include: "rules/splice.smk"
+include: "rules/merge_trans.smk"
+include: "rules/quant.smk"
+include: "rules/cov_exon.smk"
+include: "rules/assemble_no_splice.smk"
+
