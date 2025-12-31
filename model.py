@@ -6,12 +6,12 @@ import numpy as np
 def calculate_metrics(true_labels, pred_labels):
     """
     Calculate sensitivity and specificity.
-    :param true_labels: 真实标签列表（0/1）
-    :param pred_labels: 预测标签列表（0/1）
+    :param true_labels: 0/1
+    :param pred_labels: 0/1
     :return: (sensitivity, specificity)
     """
     if len(true_labels) != len(pred_labels):
-        raise ValueError("标签长度不匹配")
+        raise ValueError("the length of the labels were not matched")
 
     tp = sum(1 for t, p in zip(true_labels, pred_labels) if t == 1 and p == 1)
     tn = sum(1 for t, p in zip(true_labels, pred_labels) if t == 0 and p == 0)
